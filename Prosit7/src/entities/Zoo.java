@@ -35,20 +35,26 @@ public class Zoo {
                 ", Animaux aquatiques : " + nbrAquatic;
     }
 
-    public void addAnimal(Animal animal) {
+    public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
+        if (animal.getAge() < 0) {
+            throw new InvalidAgeException("Âge d’animal invalide : l’âge ne peut pas être négatif.");
+        }
+
         for (int i = 0; i < nbAnimals; i++) {
             if (animals[i].equals(animal)) {
                 System.out.println("Cet animal existe déjà !");
                 return;
             }
         }
+
         if (isZooFull()) {
-            System.out.println("Le zoo est plein !");
-            return;
+            throw new ZooFullException("Le zoo est plein, impossible d’ajouter un nouvel animal !");
         }
+
         animals[nbAnimals++] = animal;
         System.out.println("Animal ajouté avec succès !");
     }
+
 
     public void displayAnimals() {
         System.out.println("--- Animaux du Zoo ---");
@@ -95,14 +101,20 @@ public class Zoo {
         this.aquaticsAnimals = aquaticsAnimals;
     }
 
-    public void addAquaticAnimal(Aquatic aquatic) {
-        if (nbrAquatic < NBR_AQUATIC_CAGES) {
-            aquaticsAnimals[nbrAquatic] = aquatic;
-            this.nbrAquatic++;
-            System.out.println("Animal aquatique ajouté avec succès !");
-        } else {
-            System.out.println("Le bassin des animaux aquatiques est plein !");
+    public void addAquaticAnimal(Aquatic aquatic) throws ZooFullException {
+        for (int i = 0; i < nbrAquatic; i++) {
+            if (aquaticsAnimals[i].equals(aquatic)) {
+                System.out.println("Cet animal aquatique existe déjà !");
+                return;
+            }
         }
+
+        if (nbrAquatic >= NBR_AQUATIC_CAGES) {
+            throw new ZooFullException("La section aquatique est pleine, impossible d’ajouter un nouvel animal aquatique !");
+        }
+
+        aquaticsAnimals[nbrAquatic++] = aquatic;
+        System.out.println("Animal aquatique ajouté avec succès !");
     }
 
     public void displayAquaticAnimals() {

@@ -20,18 +20,25 @@ public class ZooManagement {
 
 
         System.out.println("\n--- Ajout d'animaux terrestres ---");
-        myZoo.addAnimal(cheetah);
-        myZoo.addAnimal(lion);
-        myZoo.addAnimal(giraffe);
-        myZoo.addAnimal(bear);
-
+        try {
+            myZoo.addAnimal(cheetah);
+            myZoo.addAnimal(lion);
+            myZoo.addAnimal(giraffe);
+            myZoo.addAnimal(bear);
+        } catch (ZooFullException | InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("\n--- Ajout d'animaux aquatiques ---");
-        myZoo.addAquaticAnimal(dolphin);
-        myZoo.addAquaticAnimal(penguin);
-        myZoo.addAquaticAnimal(dolphin2);
-        myZoo.addAquaticAnimal(penguin2);
-        myZoo.addAquaticAnimal(penguin3);
+        try {
+            myZoo.addAquaticAnimal(dolphin);
+            myZoo.addAquaticAnimal(penguin);
+            myZoo.addAquaticAnimal(dolphin2);
+            myZoo.addAquaticAnimal(penguin2);
+            myZoo.addAquaticAnimal(penguin3);
+        } catch (ZooFullException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("\n" + myZoo);
 
