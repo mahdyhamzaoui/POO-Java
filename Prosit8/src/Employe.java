@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Employe implements Comparable<Employe> {
     private int id;
     private String nom;
@@ -29,6 +31,12 @@ public class Employe implements Comparable<Employe> {
 
     public int getGrade() { return grade; }
     public void setGrade(int grade) { this.grade = grade; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Employe employe)) return false;
+        return getId() == employe.getId() && Objects.equals(getNom(), employe.getNom());
+    }
 
     @Override
     public String toString() {

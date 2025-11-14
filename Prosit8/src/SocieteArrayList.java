@@ -41,13 +41,20 @@ public class SocieteArrayList implements IGestion<Employe>, IRechercheAvancee<Em
         Collections.sort(listeEmployes);
     }
 
+    private static final Comparator<Employe> COMPARATOR_DEPT_GRADE = new Comparator<Employe>() {
+        @Override
+        public int compare(Employe e1, Employe e2) {
+
+            int c1 = e1.getNomDepartement().compareTo(e2.getNomDepartement());
+            if (c1 != 0) return c1;
+
+            return Integer.compare(e1.getGrade(), e2.getGrade());
+        }
+    };
+
     @Override
     public void trierEmployeParNomDépartementEtGrade() {
-        Comparator<Employe> comparator = Comparator
-                .comparing(Employe::getNomDepartement)
-                .thenComparing(Employe::getGrade)
-                .thenComparing(Employe::getNom);
-        Collections.sort(listeEmployes, comparator);
+        Collections.sort(listeEmployes, COMPARATOR_DEPT_GRADE);
     }
 
     @Override
